@@ -1,0 +1,27 @@
+ <?php
+ // module/Album/view/album/album/delete.phtml:
+
+ $title = 'Xóa danh mục';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p>Bạn có chắc rằng bạn muốn xóa thằng quỷ: 
+     '<?php echo $this->escapeHtml($album->getTen()); ?>' bởi
+     '<?php echo $this->escapeHtml($album->getMoTa()); ?>'?
+ </p>
+ <?php
+ $url = $this->url('danh_muc/crud', array(
+     'action' => 'delete',
+     'id'     => $this->id,// id lấy từ controller ra
+ ));
+ ?>
+ <form action="<?php echo $url; ?>" method="post">
+ <div>
+     <input type="hidden" name="id" value="<?php echo (int) $album->getId(); ?>" /> <!-- lấy id trong album ra -->
+     <input type="submit" name="del" value="Xóa nó đi" />
+     <input type="submit" name="del" value="Đừng xóa nó" />
+ </div>
+ </form>
+ 
+ 

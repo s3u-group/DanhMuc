@@ -1,0 +1,34 @@
+<?php
+ // module/Album/view/album/album/edit.phtml:
+
+ $title = 'Chỉnh sửa danh  mục';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <?php
+ $form = $this->form;
+ $form->setAttribute('action', $this->url(
+     'danh_muc/crud',
+     array(
+         'action' => 'edit',
+         'id'     => $this->id,
+     )
+ ));
+ $form->prepare();
+
+ echo $this->form()->openTag($form);
+ echo $this->formHidden($form->get('id'));// in ra html dạng hidden
+ echo $this->formRow($form->get('ten'));//in ra dang lable + input text
+ echo $this->formRow($form->get('moTa'));
+ 
+
+ $cha = $form->get('cha');
+ $cha->setValueOptions($this->makeArray($danhMuc));
+ echo $this->formRow($cha);
+
+
+
+ echo $this->formSubmit($form->get('submit'));
+ echo $this->form()->closeTag();
+

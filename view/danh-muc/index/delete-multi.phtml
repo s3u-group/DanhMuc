@@ -1,0 +1,22 @@
+<?php
+ $url = $this->url('danh_muc/crud', array(
+     'action' => 'deleteMulti',
+     'id'     => $this->id,// id lấy từ controller ra
+ ));
+ ?>
+ <form action="<?php echo $url; ?>" method="post">
+<?php
+echo 'Bạn thật sự muốn xóa các danh mục có id sau:';
+foreach ($danhMucs as $danhMuc) {?>
+	<br>
+	<input type="checkbox" value="<?php echo $danhMuc->getId(); ?>" checked="checked" name="check[]">
+	<?php
+	echo $this->escapeHtml($danhMuc->getId()).' '.$this->escapeHtml($danhMuc->getTen());
+
+}
+
+?>
+	 <br>
+	 <input type="submit" name="btnXoaNhieu" value="Ok" />
+     <input type="submit" name="btnXoaNhieu" value="No" />
+</form>

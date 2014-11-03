@@ -1,0 +1,89 @@
+<?php
+ // module/Album/view/album/album/index.phtml:
+
+ // trong onbootrap có flashMessenger();   
+
+    $flash=$this->flashMessenger();
+    $flash->setMessageOpenFormat('<div%s>
+     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+         &times;
+     </button>
+     <ul><li>')
+     ->setMessageSeparatorString('</li><li>')
+     ->setMessageCloseString('</li></ul></div>');
+
+ echo $flash->render('error',   array('alert', 'alert-dismissable', 'alert-danger'));
+ echo $flash->render('info',    array('alert', 'alert-dismissable', 'alert-info'));
+ echo $flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
+ echo $flash->render('success', array('alert', 'alert-dismissable', 'alert-success'));
+
+
+ $title = 'Danh mục';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <h1><?php echo $this->escapeHtml($gioithieu); ?></h1>
+ <p>
+     <a href="<?php echo $this->url('danh_muc/crud', array('action'=>'add')); ?>">Add new Danh mục</a>
+ </p>
+
+ <table class="table">
+ <tr>
+     <th>
+        &nbsp;
+     </th>
+     <th>Tên</th>
+     <th>Mô tả</th>
+     <th>Cha</th>
+     <th>&nbsp;</th>
+ </tr>
+
+ <?php
+ $url = $this->url('danh_muc/crud', array(
+     'action' => 'deleteMulti'
+ ));
+ ?>
+ <form method="post" action="<?php echo $url; ?>">
+ <?php foreach ($danhMuc as $album) : ?>
+ <tr>
+
+     <td>
+        <input type="checkbox" value="<?php echo $album->getId(); ?>" name="check[]">
+     </td>
+     <td><?php echo str_repeat("&#8212;&#8212;&#8212;&#8212; ", $album->getCap()).$this->escapeHtml($album->getTen());?></td>
+     <td><?php echo $this->escapeHtml($album->getMoTa());?></td>
+     <td><?php echo $this->escapeHtml($album->getTenCha());?>
+     </td>
+     <td>
+         <a href="<?php echo $this->url('danh_muc/crud',
+             array('action'=>'edit', 'id' => $album->getId()));?>">Edit</a>
+         <a href="<?php echo $this->url('danh_muc/crud',
+             array('action'=>'delete', 'id' => $album->getId()));?>">Delete</a>
+     </td>
+ </tr>
+
+ <?php endforeach; ?>
+ 
+ <tr>
+    
+    <td>
+       <input type="submit" name="btnXoaNhieu" value="Xóa hết" />
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+ </tr>
+</form>
+ </table>
+
+
+ <?php 
+    // phần này dùng để hiển thị phân trang 
+    /* 
+    echo $this->paginationControl($this->paginator,
+                                        'Sliding',// kiểu hiển thị là slidings
+                                        'danh_muc/partial_danh_muc_phan_trang', array('route' => 'danh_muc/paginator')); 
+*/
+?>
+ 
